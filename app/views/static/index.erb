@@ -1,9 +1,14 @@
 <h1>Atsushibook</h1>
 <h2>User Action</h2>
-<p><a href="users/signup">Sign up</a> | <a href="users/login">Login</a> | <a href="users/logout">Logout</a> | <a href="users/mypage">my page</a></p>
+<p><a href="users/signup">Sign up</a> | <a href="users/login">Login</a> | <a href="users/logout">Logout</a>
+<% if logged_in? %>
+ | <a href="users/mypage">my page</a></p>
+
 <h2>Post Action</h2>
 <p><a href="/posts/new">Create Post</a>
-<h2>Posts</h2>
+<% end %>
+
+<h2>Recent Posts</h2>
 <% @posts.each do |post| %>
 <p><%= post.post_content %></p>
 <p>created by <%= post.user.first_name %> <%= post.user.last_name %> | created_at <%= post.created_at %><br><a href="/posts/<%= post.id %>">see comments</a></p>

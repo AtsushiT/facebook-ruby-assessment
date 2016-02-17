@@ -72,7 +72,6 @@ end
 
 #show mypage
 get '/users/mypage' do
-  #サインインしていないときにこのURLきたらバグる
   @user = User.find(session[:user_id])
   if @user
     erb :"/users/mypage"
