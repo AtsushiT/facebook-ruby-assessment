@@ -1,0 +1,42 @@
+<h1>Post show page</h1>
+<p>posted by <%= @post.user.first_name %> <%= @post.user.last_name %><br>
+posted at <%= @post.created_at %></p>
+<p><%= @post.post_content %>
+<% if current_user.id == @post.user.id %>
+<br>
+<a href="<%= @post.id %>/edit">edit</a>
+</p>
+<% end %>
+
+<h2>Comments for this post</h2>
+<% @post.comments.each do |comment| %>
+<p><%= comment.comment_content %></p>
+<p>posted by <%= comment.user.first_name %> <%= comment.user.last_name %><br>
+posted at <%= comment.created_at %></p>
+  <% if current_user.id == comment.user.id %>
+    <form method="post" action="/comments/<%= comment.id %>/destroy">
+      <input type='hidden' name='_method' value='delete'>
+      <input type="submit" value="delete">
+    </form>
+    <a href="/comments/<%= comment.id %>/edit">edit</a>
+  <% end %>
+<% end %>
+
+<% if current_user.id == @post.user.id %>
+<h3>You can delete your post</h3>
+<form method="post" action=" <%= @post.id %>/destroy">
+    <input type='hidden' name='_method' value='delete'>
+    <input type="submit" value="delete">
+</form>
+<% end %>
+
+<% if logged_in? %>
+<h3>You can add your commnet!</h3>
+<form method="post" action="<%= @post.id %>/comments/new">
+  <textarea placeholder="put your comment here" name="comment_content"></textarea><br>
+  <input type="submit" value="comment">
+</form>
+<% end %>
+<p><a href="/">Back to top</a></p>
+
+

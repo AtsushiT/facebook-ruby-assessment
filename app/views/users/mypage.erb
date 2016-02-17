@@ -1,0 +1,35 @@
+<h1>My page</h1>
+<table class="table table-striped">
+<tbody>
+  <tr>
+    <td><strong>Name: </strong></td>
+    <td><%= @user.first_name %> <%= @user.last_name %></td>
+  </tr>
+  <tr>
+    <td><strong>Email: </strong></td>
+    <td><%= @user.email %></td>
+  </tr>
+</tbody>
+</table>
+<form method="post" action="/users/session">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Log out">
+</form>
+<p><a href="/">top</a></p>
+
+<h2>My posts</h2>
+<% @user.posts.each do |post| %>
+  <p>
+  <%= post.post_content %><br>
+  created_at: <%= post.created_at %> | <a href="/posts/<%= post.id %>">see comments</a> | <a href="/posts/<%= post.id %>/edit">edit</a>
+  </p>
+<% end %>
+
+<h2>My comments</h2>
+<% @user.comments.each do |comment| %>
+  <p>
+  <strong>Post: </strong><%= comment.post.post_content %><br>
+  <strong>Your comment: </strong><%= comment.comment_content %><br>
+  created_at: <%= comment.created_at %> | <a href="/posts/<%= comment.post.id %>">see post</a> | <a href="/comments/<%= comment.id %>/edit">edit</a>
+  </p>
+<% end %>
